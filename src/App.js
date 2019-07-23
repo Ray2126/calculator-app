@@ -31,7 +31,7 @@ class App extends Component {
     ];
 
     return (
-      <div className="display">
+      <div className="Display">
         {this.state.display}
         <Keypad buttons={buttons} className="Buttons" />
         {console.log(this.state.display)}
@@ -57,24 +57,26 @@ class App extends Component {
   };
 
   handleEqualsPress = element => {
+    let ans = 0;
     let splitNumbers = this.splitValue(
       this.state.display,
       this.state.operationIndex + 1
     );
     switch (splitNumbers[2]) {
       case "*":
-        console.log(parseInt(splitNumbers[0]) * parseInt(splitNumbers[1]));
+        ans = parseInt(splitNumbers[0]) * parseInt(splitNumbers[1]);
         break;
       case "-":
-        console.log(parseInt(splitNumbers[0]) - parseInt(splitNumbers[1]));
+        ans = parseInt(splitNumbers[0]) - parseInt(splitNumbers[1]);
         break;
       case "+":
-        console.log(parseInt(splitNumbers[0]) + parseInt(splitNumbers[1]));
+        ans = parseInt(splitNumbers[0]) + parseInt(splitNumbers[1]);
         break;
       case "/":
-        console.log(parseInt(splitNumbers[0]) / parseInt(splitNumbers[1]));
+        ans = parseInt(splitNumbers[0]) / parseInt(splitNumbers[1]);
         break;
     }
+    this.setState({ display: "" + ans });
   };
 
   handleClearPress = element => {
