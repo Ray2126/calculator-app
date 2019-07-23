@@ -7,6 +7,7 @@ import Display from "./components/display";
 class App extends Component {
   state = {
     display: "",
+    operationIndexCounter: 0,
     operationIndex: 0
   };
   render() {
@@ -30,34 +31,65 @@ class App extends Component {
     ];
 
     return (
-      <React.Fragment>
-        <Keypad buttons={buttons} />
+      <div className="display">
+        {this.state.display}
+        <Keypad buttons={buttons} className="Buttons" />
         {console.log(this.state.display)}
+        {console.log(this.state.operationIndexCounter)}
         {console.log(this.state.operationIndex)}
-      </React.Fragment>
+      </div>
     );
   }
 
   handleNumberPress = element => {
     const display = this.state.display + element;
-    const operationIndex = this.state.operationIndex + 1;
+    const operationIndexCounter = this.state.operationIndexCounter + 1;
 
-    this.setState({ operationIndex });
+    this.setState({ operationIndexCounter });
     this.setState({ display });
   };
 
   handleOperationPress = element => {
     const display = this.state.display + element;
+    const operationIndex = this.state.operationIndexCounter;
+    this.setState({ operationIndex });
     this.setState({ display });
   };
 
   handleEqualsPress = element => {
-    console.log("1" + element);
+    let splitNumbers = this.splitValue(
+      this.state.display,
+      this.state.operationIndex + 1
+    );
+    switch (splitNumbers[2]) {
+      case "*":
+        console.log(parseInt(splitNumbers[0]) * parseInt(splitNumbers[1]));
+        break;
+      case "-":
+        console.log(parseInt(splitNumbers[0]) - parseInt(splitNumbers[1]));
+        break;
+      case "+":
+        console.log(parseInt(splitNumbers[0]) + parseInt(splitNumbers[1]));
+        break;
+      case "/":
+        console.log(parseInt(splitNumbers[0]) / parseInt(splitNumbers[1]));
+        break;
+    }
   };
 
   handleClearPress = element => {
     const display = "";
-    this.setState({ display });
+    const operationIndex = 0;
+    const operationIndexCounter = 0;
+    this.setState({ display, operationIndex, operationIndexCounter });
+  };
+
+  splitValue = (value, index) => {
+    let twoHalves = [value.substring(0, index), value.substring(index)];
+    const operation = twoHalves[0].substring(index - 1);
+    twoHalves[0] = twoHalves[0].substring(0, index - 1);
+
+    return [twoHalves[0], twoHalves[1], operation];
   };
 }
 
