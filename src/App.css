@@ -1,25 +1,76 @@
 .main {
   display: flex;
   place-items: center;
-  height: 100vh;
   justify-content: center;
+  position: relative;
+  width: 280px;
+  height: 400px;
+  left: 20%;
+  top: 10px;
+}
+
+.layoutStage1 {
+  display: flex;
+  place-items: center;
+  justify-content: center;
+  position: absolute;
+  width: 210px;
+  height: 280px;
+  left: 0px;
+  top: 0px;
+}
+
+.layoutStage2 {
+  display: flex;
+  place-items: center;
+  justify-content: center;
+  position: absolute;
+  width: 280px;
+  height: 280px;
+  left: 0px;
+  bottom: 0px;
+}
+
+.layoutStage3 {
+  display: flex;
+  place-items: center;
+  justify-content: center;
+  position: absolute;
+  width: 280px;
+  height: 330px;
+  left: 0px;
+  bottom: 0px;
 }
 
 .numberButtons {
-  max-width: 120px;
+  width: 210px;
+  height: 280px;
+  top: 0px;
+  left: 0px;
 }
 
 .operationButtons {
-  max-width: 40px;
+  position: absolute;
+  width: 70px;
+  height: 280px;
+  top: 0px;
+  right: 0px;
 }
 
 .equalsButton {
   position: absolute;
-  bottom: 43.8%;
-  left: 50%;
+  bottom: 0px;
+  right: 0px;
 }
 
 .clearButton {
   position: absolute;
-  bottom: 56.05%;
+  top: 0px;
+  left: 0px;
+}
+
+.Display {
+  position: absolute;
+  top: 0px;
+  left: 0px;
 }

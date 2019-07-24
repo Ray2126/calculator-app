@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "./App.css";
-import Button from "./components/button";
 import Keypad from "./components/keypad";
 import Display from "./components/display/display";
 
@@ -41,7 +40,11 @@ class App extends Component {
         onPress: this.handleOperationPress,
         buttonType: "operation"
       },
-      { face: "+", onPress: this.handleOperationPress, buttonType: "operation" }
+      {
+        face: "+",
+        onPress: this.handleOperationPress,
+        buttonType: "operation"
+      }
     ];
 
     const equalsButton = [
@@ -54,22 +57,34 @@ class App extends Component {
 
     return (
       <div className="main">
-        <Display display={this.state.display} />
-        <span className="numberButtons">
-          <Keypad buttons={numberButtons} />
+        <span>
+          <Display display={this.state.display} />
         </span>
-        <span className="equalsButton">
-          <Keypad buttons={equalsButton} />
-        </span>
-        <span className="operationButtons">
-          <Keypad buttons={operationButtons} />
-        </span>
-        <span className="clearButton">
-          <Keypad buttons={clearButton} />
-        </span>
-        {console.log(this.state.display)}
-        {console.log(this.state.operationIndexCounter)}
-        {console.log(this.state.operationIndex)}
+
+        {/* Layout of previous plus clear button */}
+        <div className="layoutStage3">
+          {/* Layout of previous plus operation buttons */}
+          <div className="layoutStage2">
+            {/* Layout of number buttons and equals button */}
+            <div className="layoutStage1">
+              <span className="numberButtons">
+                <Keypad buttons={numberButtons} />
+              </span>
+
+              <span className="equalsButton">
+                <Keypad buttons={equalsButton} />
+              </span>
+            </div>
+
+            <span className="operationButtons">
+              <Keypad buttons={operationButtons} />
+            </span>
+          </div>
+
+          <span className="clearButton">
+            <Keypad buttons={clearButton} />
+          </span>
+        </div>
       </div>
     );
   }

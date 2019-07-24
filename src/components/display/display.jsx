@@ -3,13 +3,7 @@ import "./display.css";
 
 class Display extends Component {
   render() {
-    return (
-      <div className="Display">
-        {" "}
-        {console.log(this.props.display)}
-        {this.props.display}
-      </div>
-    );
+    return <div className="Display">{this.props.display}</div>;
   }
 }
 

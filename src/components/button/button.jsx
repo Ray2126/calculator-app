@@ -9,7 +9,6 @@ class Button extends Component {
           className={this.props.buttonType.toString()}
           onClick={() => this.props.onPress(this.props.face)}
         >
-          {console.log("My type is - ", this.props.buttonType)}
           {this.props.face}
         </button>
       </React.Fragment>
