@@ -1,0 +1,19 @@
+button {
+  width: 40px;
+}
+
+.clear {
+  width: 160px;
+  background-color: #ff531a;
+}
+
+.operation {
+  background-color: #ffff66;
+}
+
+.equals {
+  background-color: #ff531a;
+}
+
+.number {
+}

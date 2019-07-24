@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 import Button from "./components/button";
 import Keypad from "./components/keypad";
-import Display from "./components/display";
+import Display from "./components/display/display";
 
 class App extends Component {
   state = {
@@ -11,29 +11,62 @@ class App extends Component {
     operationIndex: 0
   };
   render() {
-    const buttons = [
-      { face: "0", onPress: this.handleNumberPress },
-      { face: "1", onPress: this.handleNumberPress },
-      { face: "2", onPress: this.handleNumberPress },
-      { face: "3", onPress: this.handleNumberPress },
-      { face: "4", onPress: this.handleNumberPress },
-      { face: "5", onPress: this.handleNumberPress },
-      { face: "6", onPress: this.handleNumberPress },
-      { face: "7", onPress: this.handleNumberPress },
-      { face: "8", onPress: this.handleNumberPress },
-      { face: "9", onPress: this.handleNumberPress },
-      { face: "*", onPress: this.handleOperationPress },
-      { face: "-", onPress: this.handleOperationPress },
-      { face: "+", onPress: this.handleOperationPress },
-      { face: "/", onPress: this.handleOperationPress },
-      { face: "=", onPress: this.handleEqualsPress },
-      { face: "CLR", onPress: this.handleClearPress }
+    const numberButtons = [
+      { face: "1", onPress: this.handleNumberPress, buttonType: "number" },
+      { face: "2", onPress: this.handleNumberPress, buttonType: "number" },
+      { face: "3", onPress: this.handleNumberPress, buttonType: "number" },
+      { face: "4", onPress: this.handleNumberPress, buttonType: "number" },
+      { face: "5", onPress: this.handleNumberPress, buttonType: "number" },
+      { face: "6", onPress: this.handleNumberPress, buttonType: "number" },
+      { face: "7", onPress: this.handleNumberPress, buttonType: "number" },
+      { face: "8", onPress: this.handleNumberPress, buttonType: "number" },
+      { face: "9", onPress: this.handleNumberPress, buttonType: "number" },
+      { face: "0", onPress: this.handleNumberPress, buttonType: "number" },
+      { face: ".", onPress: this.handleNumberPress, buttonType: "number" }
+    ];
+
+    const operationButtons = [
+      {
+        face: "*",
+        onPress: this.handleOperationPress,
+        buttonType: "operation"
+      },
+      {
+        face: "-",
+        onPress: this.handleOperationPress,
+        buttonType: "operation"
+      },
+      {
+        face: "/",
+        onPress: this.handleOperationPress,
+        buttonType: "operation"
+      },
+      { face: "+", onPress: this.handleOperationPress, buttonType: "operation" }
+    ];
+
+    const equalsButton = [
+      { face: "=", onPress: this.handleEqualsPress, buttonType: "equals" }
+    ];
+
+    const clearButton = [
+      { face: "CLR", onPress: this.handleClearPress, buttonType: "clear" }
     ];
 
     return (
-      <div className="Display">
-        {this.state.display}
-        <Keypad buttons={buttons} className="Buttons" />
+      <div className="main">
+        <Display display={this.state.display} />
+        <span className="numberButtons">
+          <Keypad buttons={numberButtons} />
+        </span>
+        <span className="equalsButton">
+          <Keypad buttons={equalsButton} />
+        </span>
+        <span className="operationButtons">
+          <Keypad buttons={operationButtons} />
+        </span>
+        <span className="clearButton">
+          <Keypad buttons={clearButton} />
+        </span>
         {console.log(this.state.display)}
         {console.log(this.state.operationIndexCounter)}
         {console.log(this.state.operationIndex)}
@@ -64,16 +97,16 @@ class App extends Component {
     );
     switch (splitNumbers[2]) {
       case "*":
-        ans = parseInt(splitNumbers[0]) * parseInt(splitNumbers[1]);
+        ans = parseFloat(splitNumbers[0]) * parseFloat(splitNumbers[1]);
         break;
       case "-":
-        ans = parseInt(splitNumbers[0]) - parseInt(splitNumbers[1]);
+        ans = parseFloat(splitNumbers[0]) - parseFloat(splitNumbers[1]);
         break;
       case "+":
-        ans = parseInt(splitNumbers[0]) + parseInt(splitNumbers[1]);
+        ans = parseFloat(splitNumbers[0]) + parseFloat(splitNumbers[1]);
         break;
       case "/":
-        ans = parseInt(splitNumbers[0]) / parseInt(splitNumbers[1]);
+        ans = parseFloat(splitNumbers[0]) / parseFloat(splitNumbers[1]);
         break;
     }
     this.setState({ display: "" + ans });
