@@ -7,7 +7,8 @@ class App extends Component {
   state = {
     display: "",
     operationIndexCounter: 0,
-    operationIndex: 0
+    operationIndex: 0,
+    equalsPressed: false
   };
   render() {
     const numberButtons = [
@@ -26,7 +27,7 @@ class App extends Component {
 
     const operationButtons = [
       {
-        face: "*",
+        face: "x",
         onPress: this.handleOperationPress,
         buttonType: "operation"
       },
@@ -70,7 +71,6 @@ class App extends Component {
               <span className="numberButtons">
                 <Keypad buttons={numberButtons} />
               </span>
-
               <span className="equalsButton">
                 <Keypad buttons={equalsButton} />
               </span>
@@ -85,13 +85,22 @@ class App extends Component {
             <Keypad buttons={clearButton} />
           </span>
         </div>
+        {console.log(this.state)}
       </div>
     );
   }
 
   handleNumberPress = element => {
-    const display = this.state.display + element;
-    const operationIndexCounter = this.state.operationIndexCounter + 1;
+    let display;
+    let operationIndexCounter;
+    if (this.state.equalsPressed) {
+      operationIndexCounter = 1;
+      this.setState({ equalsPressed: false });
+      display = element;
+    } else {
+      display = this.state.display + element;
+      operationIndexCounter = this.state.operationIndexCounter + 1;
+    }
 
     this.setState({ operationIndexCounter });
     this.setState({ display });
@@ -105,26 +114,22 @@ class App extends Component {
   };
 
   handleEqualsPress = element => {
-    let ans = 0;
     let splitNumbers = this.splitValue(
       this.state.display,
       this.state.operationIndex + 1
     );
-    switch (splitNumbers[2]) {
-      case "*":
-        ans = parseFloat(splitNumbers[0]) * parseFloat(splitNumbers[1]);
-        break;
-      case "-":
-        ans = parseFloat(splitNumbers[0]) - parseFloat(splitNumbers[1]);
-        break;
-      case "+":
-        ans = parseFloat(splitNumbers[0]) + parseFloat(splitNumbers[1]);
-        break;
-      case "/":
-        ans = parseFloat(splitNumbers[0]) / parseFloat(splitNumbers[1]);
-        break;
-    }
+
+    let ans =
+      splitNumbers[2] === "x"
+        ? parseFloat(splitNumbers[0]) * parseFloat(splitNumbers[1])
+        : splitNumbers[2] === "-"
+        ? parseFloat(splitNumbers[0]) - parseFloat(splitNumbers[1])
+        : splitNumbers[2] === "+"
+        ? parseFloat(splitNumbers[0]) + parseFloat(splitNumbers[1])
+        : parseFloat(splitNumbers[0]) / parseFloat(splitNumbers[1]);
+
     this.setState({ display: "" + ans });
+    this.setState({ equalsPressed: true });
   };
 
   handleClearPress = element => {
@@ -138,7 +143,6 @@ class App extends Component {
     let twoHalves = [value.substring(0, index), value.substring(index)];
     const operation = twoHalves[0].substring(index - 1);
     twoHalves[0] = twoHalves[0].substring(0, index - 1);
-
     return [twoHalves[0], twoHalves[1], operation];
   };
 }
