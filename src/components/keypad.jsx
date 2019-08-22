@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import Button from "./button/button";
 
+/**
+ * Component that instantiates all the buttons
+ */
 class Keypad extends Component {
   render() {
     return (

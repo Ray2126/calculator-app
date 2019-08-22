@@ -9,6 +9,7 @@
   top: 10px;
 }
 
+/** Position the equals button to the bottom left of the number buttons */
 .layoutStage1 {
   display: flex;
   place-items: center;
@@ -20,6 +21,7 @@
   top: 0px;
 }
 
+/** Position the operation buttons to the right of the previous div */
 .layoutStage2 {
   display: flex;
   place-items: center;
@@ -30,7 +32,7 @@
   left: 0px;
   bottom: 0px;
 }
-
+/** Position the display above the previous div */
 .layoutStage3 {
   display: flex;
   place-items: center;

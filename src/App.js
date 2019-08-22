@@ -6,6 +6,7 @@ import Display from "./components/display/display";
 class App extends Component {
   state = {
     display: "",
+    /** operationIndexCounter tracks where the operation character is in the display string and sets it to operationIndex once an operation button is pressed*/
     operationIndexCounter: 0,
     operationIndex: 0,
     equalsPressed: false
@@ -85,7 +86,6 @@ class App extends Component {
             <Keypad buttons={clearButton} />
           </span>
         </div>
-        {console.log(this.state)}
       </div>
     );
   }
@@ -93,6 +93,7 @@ class App extends Component {
   handleNumberPress = element => {
     let display;
     let operationIndexCounter;
+    /** When user presses equals and gets a value, the app automatically clears the value once user presses another number.  */
     if (this.state.equalsPressed) {
       operationIndexCounter = 1;
       this.setState({ equalsPressed: false });
@@ -139,6 +140,7 @@ class App extends Component {
     this.setState({ display, operationIndex, operationIndexCounter });
   };
 
+  /** Helper function to split the display string - ["number", "number", operation ] */
   splitValue = (value, index) => {
     let twoHalves = [value.substring(0, index), value.substring(index)];
     const operation = twoHalves[0].substring(index - 1);
